@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+:root {
+  --background: rgb(246, 249, 251);
+  --foreground: #171717;
+  --NavigationBar: rgb(19,25,39);
+  --Progress-icon: rgb(156, 72, 239);
+  --trash-icon: rgb(220, 123, 17);
+  --file-color: rgb(38, 91, 237);
+  --image-color: rgb(37, 177, 115);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-trash: var(--trash-icon);
+  --color-file: var(--file-color);
+  --color-navColor: var(--NavigationBar);
+  --color-progress: var(--Progress-icon);
+  --color-Green: var(--image-color);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+::-webkit-scrollbar{
+  width: none;
+}
