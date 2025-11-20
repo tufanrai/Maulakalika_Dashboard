@@ -58,9 +58,11 @@ const NavBar = () => {
           </Link>
         </li>
         <li className="w-full px-2 flex justify-center mt-auto">
-          <button className="w-full py-3 rounded-md flex items-center justify-start pl-10 gap-1 cursor-pointer font-semibold text-md text-white">
-            <CiLogin /> Sign out
-          </button>
+          <Link className="w-full" href={"/auth/login"}>
+            <button className="w-full py-3 rounded-md flex items-center justify-start pl-10 gap-1 cursor-pointer font-semibold text-md text-white">
+              <CiLogin /> Sign out
+            </button>
+          </Link>
         </li>
       </ul>
     </div>
