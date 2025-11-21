@@ -1,9 +1,10 @@
+import { Loader2, Save } from "lucide-react";
 import React from "react";
 import { CiUser, CiMail, CiCamera } from "react-icons/ci";
 
 const ProfileCard = () => {
   return (
-    <div className="max-w-[80%] w-full rounded-md bg-white px-5 pt-10 pb-5 border-slate-400">
+    <div className="md:max-w-[80%] w-full rounded-md bg-white px-5 pt-10 pb-5 border-slate-40 border border-slate-100 shadow-slate-100 shadow-sm/30">
       {/* image */}
       <div>
         <label className="text-base font-semibold text-slate-900 mb-4 block">
@@ -112,6 +113,19 @@ const ProfileCard = () => {
               </p>
             </div>
             <span className="text-sm text-slate-600">November 2025</span>
+          </div>
+
+          {/* Submit Button */}
+          <div className="flex justify-end gap-4 pt-6 border-t border-slate-200">
+            <button
+              type="submit"
+              className="bg-emerald-600 hover:bg-emerald-700 px-5 py-2 rounded-lg flex items-center justify-center font-medium text-white text-sm ease duration-300 cursor-pointer"
+            >
+              <>
+                <Save className="h-4 w-4 mr-2" />
+                Save Changes
+              </>
+            </button>
           </div>
         </div>
       </div>

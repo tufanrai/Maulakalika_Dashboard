@@ -3,7 +3,7 @@ import React from "react";
 
 const AuthForm = () => {
   return (
-    <div className="max-w-[30%] w-full rounded-md p-4 border border-slate-100 bg-white shadow-xl/30">
+    <div className="md:max-w-[30%] w-full rounded-md p-4 border border-slate-100 bg-white shadow-xl/30">
       <h1 className="w-full text-center font-semibold text-xl text-stone-600">
         Login
       </h1>
@@ -13,7 +13,7 @@ const AuthForm = () => {
           <input
             type="text"
             placeholder="jhon@example.com"
-            className="w-full rounded-sm px-5 py-2 font-medium text-lg text-stone-800 outline-none bg-slate-50 border border-slate-100 "
+            className="w-full rounded-sm px-5 py-2 font-regural text-sm text-slate-800 outline-none bg-slate-50 border border-slate-100 shadow-md/30 shadow-slate-50"
           />
         </div>
         <div className="w-full flex flex-col items-start justify-center gap-2">
@@ -21,7 +21,7 @@ const AuthForm = () => {
           <input
             type="password"
             placeholder="********"
-            className="w-full rounded-sm px-5 py-2 font-medium text-lg text-stone-800 outline-none bg-slate-50 border border-slate-100 "
+            className="w-full rounded-sm px-5 py-2 font-regural text-sm text-slate-800 outline-none bg-slate-50 border border-slate-100 shadow-md/30 shadow-slate-50"
           />
         </div>
         <div className="w-full flex justify-end">
