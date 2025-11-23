@@ -1,15 +1,37 @@
+"use client";
 import QuickLinkCard from "@/components/cards/QuickLinkCard";
 import StatsCard from "@/components/cards/ServiceCard";
-import { FaRegFilePdf, FaImage, FaTrash, FaUpload } from "react-icons/fa";
-import { FiTrendingUp } from "react-icons/fi";
+import React from "react";
+import { FaRegFilePdf, FaImage, FaUpload } from "react-icons/fa";
 
+interface IProps {
+  name: string;
+  lengthImage: string;
+  lengthDownload: string;
+}
 export default function Home() {
+  // fetched the total length of say the total images and files.
+  const [datas, setDatas] = React.useState<null | IProps>(null);
+
+  React.useEffect(() => {
+    if (typeof window != "undefined") {
+      const name = JSON.parse(localStorage.getItem("user")!).admin.name!;
+      const images = localStorage.getItem("ImageLength")!;
+      const pdfs = localStorage.getItem("DownloadLenght")!;
+
+      setDatas({
+        name,
+        lengthImage: images,
+        lengthDownload: pdfs,
+      });
+    }
+  }, []);
   return (
     <div className="w-full h-screen overflow-hidden p-10 overflow-x-hidden overflow-y-auto">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-slate-900">
-          Welcome back Tufan Rai!
+          Welcome back {datas?.name}!
         </h1>
         <p className="text-slate-600 mt-2">
           Here's what's happening with your files today.
@@ -20,25 +42,18 @@ export default function Home() {
       <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4">
         <StatsCard
           title="Total Files"
-          value="0"
+          value={datas?.lengthDownload}
           trend="0 Added today"
           color="emerald"
           icon={FaRegFilePdf}
         />
         <StatsCard
           title="Total Images"
-          value="0"
+          value={datas?.lengthImage}
           trend="0 Added today"
           color="blue"
           icon={FaImage}
         />
-        <StatsCard
-          title="Storage userd"
-          value="0.0 KB"
-          color="purple"
-          icon={FiTrendingUp}
-        />
-        <StatsCard title="In Trash" value="0" color="amber" icon={FaTrash} />
       </div>
 
       {/* Quick Links */}
@@ -62,10 +77,7 @@ export default function Home() {
       {/* Recent Uploads */}
       <div className="bg-white rounded-2xl border border-slate-200 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-slate-900">Recent Uploads</h2>
-          <button className="px-4 py-1 rounded-sm flex items-center justify-center font-semibold text-md text-stone-800 ease duration-300 hover:bg-slate-200 cursor-pointer">
-            View All
-          </button>
+          <h2 className="text-xl font-bold text-slate-900">Uploaded files</h2>
         </div>
 
         <div className="text-center py-12">

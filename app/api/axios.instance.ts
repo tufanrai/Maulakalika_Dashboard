@@ -2,14 +2,16 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const uri = process.env.NEXT_PUBLIC_API!;
-const accessToken = Cookies.get("access token")!;
+const accessToken = Cookies.get("accessToken")!;
 
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: uri,
-  timeout: 2000,
-  headers: {
-    Authorization: `BEARER ${accessToken}`,
-  },
 });
 
-export default axiosInstance;
+export const filesInstance = axios.create({
+  baseURL: uri,
+  headers: {
+    Authorization: `BEARER ${accessToken}`,
+    "Content-Type": "multipart/form-data",
+  },
+});

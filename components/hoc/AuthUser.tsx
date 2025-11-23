@@ -12,8 +12,15 @@ function WithAuthorization<T>(
   return function WithAuthentication(props: any) {
     // login
     const router = useRouter();
+    const token = Cookies.get("accessToken")!;
     React.useEffect(() => {
-      const token = Cookies.get("accessToken")!;
+      if (!token) {
+        toast.error("token mising: please login");
+        setTimeout(() => {
+          router.replace("/auth/login");
+        }, 1500);
+      }
+
       const decoded: { exp: number; role: string } = jwtDecode(token);
 
       if (decoded.exp <= Math.floor(Date.now() / 1000)) {

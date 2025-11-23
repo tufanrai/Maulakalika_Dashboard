@@ -1,8 +1,24 @@
+"use client";
 import { Loader2, Save } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CiUser, CiMail, CiCamera } from "react-icons/ci";
 
+interface IUser {
+  name: string;
+  email: string;
+  contact: string;
+  role: string;
+  createdAt: string;
+}
+
 const ProfileCard = () => {
+  const [user, setUser] = useState<undefined | IUser>(undefined);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const user: IUser = JSON.parse(localStorage.getItem("user")!).admin;
+      setUser(user);
+    }
+  }, []);
   return (
     <div className="md:max-w-[80%] w-full rounded-md bg-white px-5 pt-10 pb-5 border-slate-40 border border-slate-100 shadow-slate-100 shadow-sm/30">
       {/* image */}
@@ -13,19 +29,13 @@ const ProfileCard = () => {
         <div className="flex items-center gap-6">
           <div className="relative">
             <div className="h-24 w-24 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center">
-              <div className="h-12 w-12 text-white rounded-full" />
+              <CiUser className="h-12 w-12 font-bold text-white rounded-full" />
             </div>
-            <label className="absolute bottom-0 right-0 p-2 bg-white rounded-full border-2 border-slate-200 cursor-pointer hover:bg-slate-50 transition-colors">
-              <CiCamera className="h-4 w-4 text-slate-600 rounded-full" />
-              <input type="file" accept="image/*" className="hidden" />
-            </label>
           </div>
           <div>
-            <p className="text-sm font-medium text-slate-900">User</p>
-            <p className="text-sm text-slate-500">name@example.com</p>
-            <p className="text-xs text-slate-400 mt-2">
-              JPG, GIF or PNG. Max size of 5MB
-            </p>
+            <p className="text-sm font-medium text-slate-900">{user?.name}</p>
+            <p className="text-sm text-slate-500">{user?.email}</p>
+            <p className="text-xs text-slate-400 mt-2">{user?.role}</p>
           </div>
         </div>
       </div>
@@ -44,7 +54,7 @@ const ProfileCard = () => {
               <CiUser className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
               <input
                 id="full_name"
-                placeholder="Enter your full name"
+                placeholder={user?.name}
                 className="w-full pl-10 outline-none px-5 py-1 font-regural text-stone-800 border rounded-md border-slate-100 bg-slate-50"
               />
             </div>
@@ -58,19 +68,9 @@ const ProfileCard = () => {
                 id="email"
                 type="email"
                 className="w-full pl-10 outline-none px-5 py-1 font-regural text-stone-800 border rounded-md border-slate-100 bg-slate-50"
-                placeholder="Email cannot be changed"
+                placeholder={user?.email}
               />
             </div>
-          </div>
-
-          <div className="space-y-2 md:col-span-2">
-            <label htmlFor="bio">Bio</label>
-            <textarea
-              id="bio"
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none resize-none"
-              rows={3}
-              placeholder="Tell us about yourself"
-            />
           </div>
 
           <div className="space-y-2 flex flex-col">
@@ -79,7 +79,7 @@ const ProfileCard = () => {
               id="phone"
               className="pl-10 outline-none px-5 py-1 font-regural text-stone-800 border rounded-md border-slate-100 bg-slate-50"
               type="tel"
-              placeholder="+1 (555) 000-0000"
+              placeholder={user?.contact}
             />
           </div>
         </div>
@@ -101,7 +101,7 @@ const ProfileCard = () => {
               </p>
             </div>
             <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium capitalize">
-              Admin
+              {user?.role}
             </span>
           </div>
 
@@ -112,7 +112,7 @@ const ProfileCard = () => {
                 Account creation date
               </p>
             </div>
-            <span className="text-sm text-slate-600">November 2025</span>
+            <span className="text-sm text-slate-600">{user?.createdAt}</span>
           </div>
 
           {/* Submit Button */}

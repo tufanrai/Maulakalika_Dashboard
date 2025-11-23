@@ -1,8 +1,8 @@
-import axiosInstance from "./axios.instance";
+import { filesInstance } from "./axios.instance";
 
 const fetchDownloadFiles = async () => {
   try {
-    const response = await axiosInstance.get("/files");
+    const response = await filesInstance.get("/files");
     return response.data;
   } catch (err: any) {
     return err.message;
