@@ -2,7 +2,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
-import { IUpload } from "../interfaces/interfaces";
+import { ETypes, IUpload } from "../interfaces/interfaces";
 import { UploadSchema } from "../schema/FormSchema";
 import { useMutation } from "@tanstack/react-query";
 import { uploadDownloadFiles, uploadGalleryImage } from "@/app/api/gallery.api";
@@ -17,9 +17,11 @@ export default function FileUploadForm() {
     onSuccess: (data) => {
       toast.success(data?.message);
       router.replace("/files");
+      reset();
     },
   });
   const {
+    reset,
     register,
     setValue,
     handleSubmit,
@@ -88,16 +90,32 @@ export default function FileUploadForm() {
         <p className="text-red-600 text-sm">{errors.file.message}</p>
       )}
 
-      <div className="w-full flex flex-col items-start justify-center">
-        <label className="block text-sm font-medium text-slate-700 mb-2">
-          Title
-        </label>
-        <input
-          className="bg-white outline-none px-5 py-1 font-regural text-md text-stone-800 w-full rounded-md border-[1px] border-stone-300"
-          type="text"
-          placeholder="Kalika hydro power"
-          {...register("title")}
-        />
+      <div className="w-full flex items-center justify-around gap-2">
+        <div className=" flex flex-col items-start justify-center">
+          <label className="block text-sm font-medium text-slate-700 mb-2">
+            Title
+          </label>
+          <input
+            className="bg-white outline-none px-5 py-1 font-regural text-md text-stone-800 rounded-md border-[1px] border-stone-300"
+            type="text"
+            placeholder="Kalika hydro power"
+            {...register("title")}
+          />
+        </div>
+
+        <div className="flex flex-col items-start justify-center">
+          <label className="block text-sm font-medium text-slate-700 mb-2">
+            File type
+          </label>
+          <select
+            className="bg-white outline-none px-5 py-1 font-regural text-md text-stone-800 rounded-md border-[1px] border-stone-300"
+            {...register("type")}
+          >
+            <option value={ETypes.downloads}>{ETypes.downloads}</option>
+            <option value={ETypes.events}>{ETypes.events}</option>
+            <option value={ETypes.news}>{ETypes.news}</option>
+          </select>
+        </div>
       </div>
 
       <div className="w-full flex flex-col items-start justify-center">

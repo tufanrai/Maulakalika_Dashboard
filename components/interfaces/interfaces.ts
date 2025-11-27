@@ -25,6 +25,7 @@ export interface IUpload {
   title: string;
   description: string;
   file: File;
+  type: string;
 }
 
 export interface IDownload {
@@ -39,4 +40,12 @@ export interface IDownload {
 // image upload
 export interface IImage {
   image: File;
+}
+
+// file type enum
+export enum ETypes {
+  events = "Event",
+  downloads = "Downloads",
+  news = "News",
+  projects = "Projects",
 }

@@ -3,6 +3,9 @@ import QuickLinkCard from "@/components/cards/QuickLinkCard";
 import StatsCard from "@/components/cards/ServiceCard";
 import React from "react";
 import { FaRegFilePdf, FaImage, FaUpload } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import FilesSection from "@/components/Files.section";
+import ImagesSection from "@/components/Images.section";
 
 interface IProps {
   name: string;
@@ -13,12 +16,17 @@ export default function Home() {
   // fetched the total length of say the total images and files.
   const [datas, setDatas] = React.useState<null | IProps>(null);
 
+  const router = useRouter();
+
   React.useEffect(() => {
     if (typeof window != "undefined") {
-      const name = JSON.parse(localStorage.getItem("user")!).admin.name!;
+      const name = JSON.parse(localStorage.getItem("user")!).admin.name ?? "";
       const images = localStorage.getItem("ImageLength")!;
       const pdfs = localStorage.getItem("DownloadLenght")!;
 
+      if (name == null) {
+        router.replace("/auth/login");
+      }
       setDatas({
         name,
         lengthImage: images,
@@ -79,13 +87,8 @@ export default function Home() {
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-slate-900">Uploaded files</h2>
         </div>
-
-        <div className="text-center py-12">
-          <FaUpload className="h-12 w-12 text-slate-300 mx-auto mb-4" />
-          <p className="text-slate-500">
-            No uploads yet. Start by uploading some files!
-          </p>
-        </div>
+        <FilesSection />
+        <ImagesSection />
       </div>
     </div>
   );

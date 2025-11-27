@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { ETypes } from "../interfaces/interfaces";
 
 // register user
 export const RegisterSchema = yup.object({
@@ -45,7 +46,10 @@ export const RegisterSchema = yup.object({
 // Login schema
 export const LoginSchema = yup.object({
   email: yup.string().required("please enter your email."),
-  password: yup.string().required("please enter your email."),
+  password: yup
+    .string()
+    .required("please enter your email.")
+    .oneOf([ETypes.downloads, ETypes.events, ETypes.news, ETypes.projects]),
 });
 
 // files schema
@@ -60,6 +64,7 @@ export const UploadSchema = yup.object({
     ),
   title: yup.string().required("please add a title to the file"),
   description: yup.string().required("please summarise the file"),
+  type: yup.string().required("Please enter the file category"),
 });
 
 // image schema

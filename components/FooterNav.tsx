@@ -47,6 +47,7 @@ const FooterNav = () => {
           <button
             onClick={() => {
               Cookies.remove("accessToken");
+              localStorage.removeItem("user");
               setTimeout(() => {
                 router.replace("/auth/login");
               }, 2000);
