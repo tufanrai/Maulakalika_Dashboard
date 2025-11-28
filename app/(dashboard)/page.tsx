@@ -20,11 +20,12 @@ export default function Home() {
 
   React.useEffect(() => {
     if (typeof window != "undefined") {
-      const name = JSON.parse(localStorage.getItem("user")!).admin.name ?? "";
+      const name =
+        JSON.parse(localStorage.getItem("user") ?? "").admin.name ?? "";
       const images = localStorage.getItem("ImageLength")!;
       const pdfs = localStorage.getItem("DownloadLenght")!;
 
-      if (name == null) {
+      if (typeof name == null) {
         router.replace("/auth/login");
       }
       setDatas({
@@ -77,7 +78,7 @@ export default function Home() {
           title="Upload Files"
           description="Upload documents, spreadsheets and many more"
           icon={<FaRegFilePdf className="h-12 w-12 mb-4 opacity-90" />}
-          link="/images"
+          link="/files"
           color="blue"
         />
       </div>

@@ -46,10 +46,7 @@ export const RegisterSchema = yup.object({
 // Login schema
 export const LoginSchema = yup.object({
   email: yup.string().required("please enter your email."),
-  password: yup
-    .string()
-    .required("please enter your email.")
-    .oneOf([ETypes.downloads, ETypes.events, ETypes.news, ETypes.projects]),
+  password: yup.string().required("please enter your email."),
 });
 
 // files schema
@@ -64,7 +61,10 @@ export const UploadSchema = yup.object({
     ),
   title: yup.string().required("please add a title to the file"),
   description: yup.string().required("please summarise the file"),
-  type: yup.string().required("Please enter the file category"),
+  type: yup
+    .string()
+    .required("Please enter the file category")
+    .oneOf([ETypes.downloads, ETypes.events, ETypes.news, ETypes.projects]),
 });
 
 // image schema
@@ -77,4 +77,11 @@ export const ImageUploadSchema = yup.object({
       "Please upload a file",
       (value) => value instanceof File
     ),
+});
+
+// user info
+export const AdminsData = yup.object({
+  name: yup.string(),
+  email: yup.string().email("please enter a valid email"),
+  contact: yup.string(),
 });

@@ -1,5 +1,9 @@
-import { IRegister, ILogin } from "../../components/interfaces/interfaces";
-import { axiosInstance } from "./axios.instance";
+import {
+  IRegister,
+  ILogin,
+  IAdmin,
+} from "../../components/interfaces/interfaces";
+import { adminsInstance, axiosInstance } from "./axios.instance";
 
 // Register User
 export const RegisterNewUser = async (data: IRegister) => {
@@ -15,6 +19,27 @@ export const RegisterNewUser = async (data: IRegister) => {
 export const LoginUser = async (data: ILogin) => {
   try {
     const response = await axiosInstance.post("/api/auth/login", data);
+    return response.data;
+  } catch (err: any) {
+    return err.message;
+  }
+};
+
+// Update admin's data
+export const AdminData = async (data: IAdmin) => {
+  try {
+    const response = await adminsInstance.put(`/user/update/${data.id}`, data);
+    return response.data;
+  } catch (err: any) {
+    return err.message;
+  }
+};
+
+// get user's id
+export const getAdminsData = async () => {
+  try {
+    const id = JSON.parse(localStorage.getItem("user")!).admin._id;
+    const response = await adminsInstance.get(`/user/${id}`);
     return response.data;
   } catch (err: any) {
     return err.message;

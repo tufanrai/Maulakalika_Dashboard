@@ -12,16 +12,14 @@ function WithAuthorization<T>(
   return function WithAuthentication(props: any) {
     // login
     const router = useRouter();
-    const token = Cookies.get("accessToken")!;
+    const token = Cookies.get("accessToken");
     React.useEffect(() => {
-      if (!token) {
+      if (typeof token == undefined) {
         toast.error("token mising: please login");
-        setTimeout(() => {
-          router.replace("/auth/login");
-        }, 1500);
+        router.replace("/auth/login");
       }
 
-      const decoded: { exp: number; role: string } = jwtDecode(token);
+      const decoded: { exp: number; role: string } = jwtDecode(token ?? "");
 
       if (decoded.exp <= Math.floor(Date.now() / 1000)) {
         toast.error("session expired: please login");

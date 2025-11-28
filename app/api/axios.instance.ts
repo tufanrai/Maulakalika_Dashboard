@@ -8,6 +8,12 @@ export const axiosInstance = axios.create({
   baseURL: uri,
 });
 
+export const adminsInstance = axios.create({
+  baseURL: uri,
+  headers: {
+    Authorization: `BEARER ${accessToken}`,
+  },
+});
 export const filesInstance = axios.create({
   baseURL: uri,
   headers: {

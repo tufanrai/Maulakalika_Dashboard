@@ -49,3 +49,11 @@ export enum ETypes {
   news = "News",
   projects = "Projects",
 }
+
+// admin's data
+export interface IAdmin {
+  name?: string;
+  email?: string;
+  contact?: string;
+  id?: string;
+}
