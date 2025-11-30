@@ -2,7 +2,7 @@
 import QuickLinkCard from "@/components/cards/QuickLinkCard";
 import StatsCard from "@/components/cards/ServiceCard";
 import React from "react";
-import { FaRegFilePdf, FaImage, FaUpload } from "react-icons/fa";
+import { FaRegFilePdf, FaImage } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import FilesSection from "@/components/Files.section";
 import ImagesSection from "@/components/Images.section";
@@ -20,14 +20,19 @@ export default function Home() {
 
   React.useEffect(() => {
     if (typeof window != "undefined") {
-      const name =
-        JSON.parse(localStorage.getItem("user") ?? "").admin.name ?? "";
       const images = localStorage.getItem("ImageLength")!;
       const pdfs = localStorage.getItem("DownloadLenght")!;
 
-      if (typeof name == null) {
-        router.replace("/auth/login");
+      let userData;
+
+      try {
+        userData = JSON.parse(localStorage.getItem("user") || "{}");
+      } catch {
+        userData = {};
       }
+
+      const name = userData?.admin?.name ?? "";
+
       setDatas({
         name,
         lengthImage: images,

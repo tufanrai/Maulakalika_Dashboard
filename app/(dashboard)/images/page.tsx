@@ -39,7 +39,7 @@ const page = () => {
       </div>
 
       <div className="w-full mt-4 p-4 bg-white rounded-md shadow shadow-lg/3 flex flex-wrap items-start justify-start gap-4">
-        {data && data?.files.at(0) ? (
+        {data && data?.files ? (
           data.files.map((file: IImg, index: number) => (
             <Gallery_card key={index} image={file.url} _id={file._id} />
           ))

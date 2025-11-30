@@ -10,31 +10,43 @@ function WithAuthorization<T>(
   roles: string[]
 ) {
   return function WithAuthentication(props: any) {
-    // login
     const router = useRouter();
-    const token = Cookies.get("accessToken");
+
     React.useEffect(() => {
-      if (typeof token == undefined) {
-        toast.error("token mising: please login");
+      const token = Cookies.get("accessToken");
+
+      // 1. Token missing
+      if (!token) {
+        toast.error("token missing: please login");
         router.replace("/auth/login");
+        return;
       }
 
-      const decoded: { exp: number; role: string } = jwtDecode(token ?? "");
+      // 2. Token exists but might be garbage → decode carefully
+      let decoded: { exp: number; role: string };
+      try {
+        decoded = jwtDecode(token);
+      } catch (e) {
+        toast.error("invalid token: please login again");
+        Cookies.remove("accessToken");
+        router.replace("/auth/login");
+        return;
+      }
 
-      if (decoded.exp <= Math.floor(Date.now() / 1000)) {
+      // 3. Expired token
+      if (decoded.exp < Math.floor(Date.now() / 1000)) {
         toast.error("session expired: please login");
         Cookies.remove("accessToken");
-        setTimeout(() => {
-          router.replace("/auth/login");
-        });
+        router.replace("/auth/login");
+        return;
       }
 
-      if (!roles.includes(decoded.role!)) {
+      // 4. Unauthorized role
+      if (!roles.includes(decoded.role)) {
         toast.error("unauthorised access: access denied");
         Cookies.remove("accessToken");
-        setTimeout(() => {
-          router.replace("/auth/login");
-        });
+        router.replace("/auth/login");
+        return;
       }
     }, []);
 
