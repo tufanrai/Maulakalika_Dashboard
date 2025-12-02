@@ -1,6 +1,16 @@
 import { filesInstance } from "./axios.instance";
 import { IImage, IUpload } from "@/components/interfaces/interfaces";
 
+// Files
+export const fectchSpecificImage = async (id: string) => {
+  try {
+    const response = await filesInstance.get(`/gallery/upload/${id}`);
+    return response.data.success;
+  } catch (err: any) {
+    return err.message;
+  }
+};
+
 export const fetchGalleryContents = async () => {
   try {
     const response = await filesInstance.get("/gallery");
@@ -18,6 +28,7 @@ export const uploadGalleryImage = async (data: IImage) => {
     return err.message;
   }
 };
+
 export const deleteGalleryImage = async (id: string) => {
   try {
     const response = await filesInstance.delete(`/gallery/upload/${id}`);
@@ -27,6 +38,7 @@ export const deleteGalleryImage = async (id: string) => {
   }
 };
 
+// Download pdfs.
 export const fetchDownloadFiles = async () => {
   try {
     const response = await filesInstance.get("/downloads");

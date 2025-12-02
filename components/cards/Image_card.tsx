@@ -10,8 +10,7 @@ interface IProps {
 const Gallery_card = ({ image, _id }: IProps) => {
   const [clicked, setClicked] = useState<boolean>(false);
   return (
-    <div className="max-w-[280px] max-h-[260px] relative w-full h-screen bg-slate-400 rounded-md ease duration-300 hover:scale-103 hover:shadow-primary">
-      <GallerDeleteBtn id={_id} customStyle="absolute top-5 right-6" />
+    <div className="max-w-[280px] max-h-[260px] relative w-full h-screen bg-slate-100 border border-slate-200 rounded-md  hover:shadow-primary flex flex-col items-start justify-center gap-2 overflow-hidden">
       <div
         style={{
           backgroundImage: `url("${image}")`,
@@ -19,8 +18,11 @@ const Gallery_card = ({ image, _id }: IProps) => {
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
         }}
-        className="max-w-[280px] max-h-[260px] w-full h-screen rounded-md shadow-xl/30 shadow-stone-800 cursor-pointer"
+        className="max-w-[280px] max-h-[260px] w-full h-screen rounded-t-md cursor-pointer ease duration-300 hover:scale-103 bg-black"
       ></div>
+      <div className="w-full px-2 py-3 flex items-center justify-end">
+        <GallerDeleteBtn id={_id} />
+      </div>
     </div>
   );
 };

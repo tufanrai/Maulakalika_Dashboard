@@ -114,6 +114,7 @@ export default function FileUploadForm() {
             <option value={ETypes.downloads}>{ETypes.downloads}</option>
             <option value={ETypes.events}>{ETypes.events}</option>
             <option value={ETypes.news}>{ETypes.news}</option>
+            <option value={ETypes.projects}>{ETypes.projects}</option>
           </select>
         </div>
       </div>
