@@ -187,4 +187,5 @@ const page = () => {
   );
 };
 
-export default SuperAdminAuthorization(page, ["Super Admin"]);
+// export default SuperAdminAuthorization(page, ["Super Admin"]);
+export default page;

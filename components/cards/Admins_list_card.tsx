@@ -16,6 +16,41 @@ type Person = {
   progress: number;
 };
 
+type Admins = {
+  name: string;
+  email: string;
+  contact: string;
+  role: string;
+  actions?: any;
+};
+
+const defaultAdmins: Admins[] = [
+  {
+    name: "Tufan Rai",
+    email: "info@example.com",
+    contact: "9817362424",
+    role: "Admin",
+  },
+  {
+    name: "Khushi Sharma",
+    email: "info@example.com",
+    contact: "9817362424",
+    role: "Admin",
+  },
+  {
+    name: "Akriti Ojha",
+    email: "info@example.com",
+    contact: "9817362424",
+    role: "Super Admin",
+  },
+  {
+    name: "Aryana Sharma",
+    email: "info@example.com",
+    contact: "9817362424",
+    role: "Admin",
+  },
+];
+
 const defaultData: Person[] = [
   {
     firstName: "tanner",
@@ -43,40 +78,43 @@ const defaultData: Person[] = [
   },
 ];
 
-const columnHelper = createColumnHelper<Person>();
+const columnHelper = createColumnHelper<Admins>();
 
 const columns = [
-  columnHelper.accessor("firstName", {
+  columnHelper.accessor("name", {
     cell: (info) => info.getValue(),
     footer: (info) => info.column.id,
   }),
-  columnHelper.accessor((row) => row.lastName, {
-    id: "lastName",
-    cell: (info) => <i>{info.getValue()}</i>,
-    header: () => <span>Last Name</span>,
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor("age", {
-    header: () => "Age",
+  columnHelper.accessor("email", {
+    header: () => "Email",
     cell: (info) => info.renderValue(),
     footer: (info) => info.column.id,
   }),
-  columnHelper.accessor("visits", {
-    header: () => <span>Visits</span>,
+  columnHelper.accessor("contact", {
+    header: () => <span>Contact</span>,
     footer: (info) => info.column.id,
   }),
-  columnHelper.accessor("status", {
-    header: "Status",
+  columnHelper.accessor("role", {
+    header: "Role",
     footer: (info) => info.column.id,
   }),
-  columnHelper.accessor("progress", {
-    header: "Profile Progress",
-    footer: (info) => info.column.id,
+  columnHelper.accessor("actions", {
+    header: "Action",
+    cell: () => (
+      <div className="w-full flex items-center justify-center gap-2">
+        <button className="font-regural text-sm px-5 py-2 rounded-md bg-red-600 text-white cursor-pointer">
+          Remove admin
+        </button>
+        <button className="font-regural text-sm px-5 py-2 rounded-md bg-blue-600 text-white cursor-pointer">
+          Update admin
+        </button>
+      </div>
+    ),
   }),
 ];
 
 const Admins_list_card = () => {
-  const [data, _setData] = React.useState(() => [...defaultData]);
+  const [data, _setData] = React.useState(() => [...defaultAdmins]);
   const rerender = React.useReducer(() => ({}), {})[1];
 
   const table = useReactTable({
@@ -87,12 +125,12 @@ const Admins_list_card = () => {
 
   return (
     <div className="w-full p-2">
-      <table className="w-full">
-        <thead className="bg-black text-white">
+      <table className="w-full border-1 border-primary p-2">
+        <thead className="bg-primary text-white font-semibold">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id}>
+                <th className="text-start px-3 py-1" key={header.id}>
                   {header.isPlaceholder
                     ? null
                     : flexRender(
@@ -106,36 +144,22 @@ const Admins_list_card = () => {
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
+            <tr
+              className="border-b-1 border-primary/10 font-regural text-sm text-start"
+              key={row.id}
+            >
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
+                <td
+                  className="py-2 border-r-1 border-primary/10 px-3"
+                  key={cell.id}
+                >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
             </tr>
           ))}
         </tbody>
-        <tfoot>
-          {table.getFooterGroups().map((footerGroup) => (
-            <tr key={footerGroup.id}>
-              {footerGroup.headers.map((header) => (
-                <th key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.footer,
-                        header.getContext()
-                      )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </tfoot>
       </table>
-      <div className="h-4" />
-      <button onClick={() => rerender()} className="border p-2">
-        Rerender
-      </button>
     </div>
   );
 };
