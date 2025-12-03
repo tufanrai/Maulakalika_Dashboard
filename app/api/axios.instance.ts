@@ -11,13 +11,13 @@ export const axiosInstance = axios.create({
 export const adminsInstance = axios.create({
   baseURL: uri,
   headers: {
-    Authorization: `BEARER ${accessToken}`,
+    Authorization: `Bearer ${accessToken}`,
   },
 });
 export const filesInstance = axios.create({
   baseURL: uri,
   headers: {
-    Authorization: `BEARER ${accessToken}`,
+    Authorization: `Bearer ${accessToken}`,
     "Content-Type": "multipart/form-data",
   },
 });

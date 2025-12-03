@@ -14,4 +14,4 @@ const layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   );
 };
 
-export default WithAuthorization(layout, ["Admin"]);
+export default WithAuthorization(layout, ["Admin", "Super Admin"]);

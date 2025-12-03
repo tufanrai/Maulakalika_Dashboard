@@ -6,16 +6,11 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { CiEdit, CiTrash } from "react-icons/ci";
+import { useQuery } from "@tanstack/react-query";
+import { getAllAdmins } from "@/app/api/auth.api";
 
-type Person = {
-  firstName: string;
-  lastName: string;
-  age: number;
-  visits: number;
-  status: string;
-  progress: number;
-};
-
+// interface of the data declared
 type Admins = {
   name: string;
   email: string;
@@ -24,6 +19,7 @@ type Admins = {
   actions?: any;
 };
 
+// default values for the table
 const defaultAdmins: Admins[] = [
   {
     name: "Tufan Rai",
@@ -51,71 +47,58 @@ const defaultAdmins: Admins[] = [
   },
 ];
 
-const defaultData: Person[] = [
-  {
-    firstName: "tanner",
-    lastName: "linsley",
-    age: 24,
-    visits: 100,
-    status: "In Relationship",
-    progress: 50,
-  },
-  {
-    firstName: "tandy",
-    lastName: "miller",
-    age: 40,
-    visits: 40,
-    status: "Single",
-    progress: 80,
-  },
-  {
-    firstName: "joe",
-    lastName: "dirte",
-    age: 45,
-    visits: 20,
-    status: "Complicated",
-    progress: 10,
-  },
-];
-
-const columnHelper = createColumnHelper<Admins>();
-
-const columns = [
-  columnHelper.accessor("name", {
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor("email", {
-    header: () => "Email",
-    cell: (info) => info.renderValue(),
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor("contact", {
-    header: () => <span>Contact</span>,
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor("role", {
-    header: "Role",
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor("actions", {
-    header: "Action",
-    cell: () => (
-      <div className="w-full flex items-center justify-center gap-2">
-        <button className="font-regural text-sm px-5 py-2 rounded-md bg-red-600 text-white cursor-pointer">
-          Remove admin
-        </button>
-        <button className="font-regural text-sm px-5 py-2 rounded-md bg-blue-600 text-white cursor-pointer">
-          Update admin
-        </button>
-      </div>
-    ),
-  }),
-];
-
 const Admins_list_card = () => {
-  const [data, _setData] = React.useState(() => [...defaultAdmins]);
-  const rerender = React.useReducer(() => ({}), {})[1];
+  // fetch the data from
+  const fetchedData = useQuery({
+    queryKey: ["fetch the admin", "new user"],
+    queryFn: getAllAdmins,
+  });
+
+  // Column helper
+  const columnHelper = createColumnHelper<Admins>();
+
+  // columns
+  const columns = [
+    columnHelper.accessor("name", {
+      cell: (info) => info.getValue(),
+      footer: (info) => info.column.id,
+    }),
+    columnHelper.accessor("email", {
+      header: () => "Email",
+      cell: (info) => info.renderValue(),
+      footer: (info) => info.column.id,
+    }),
+    columnHelper.accessor("contact", {
+      header: () => <span>Contact</span>,
+      footer: (info) => info.column.id,
+    }),
+    columnHelper.accessor("role", {
+      header: "Role",
+      footer: (info) => info.column.id,
+    }),
+    columnHelper.accessor("actions", {
+      header: "Action",
+      cell: () => (
+        <div className="max-w-30 w-full flex flex-cols md:flex-row items-center justify-center gap-2">
+          <button
+            onClick={() => {}}
+            className=" rounded-md bg-blue-600 text-white cursor-pointer flex items-center justify-center ease duration-300 hover:bg-blue-700 p-2 w-10 h-10"
+          >
+            <CiEdit className="font-black text-xl" />
+          </button>
+          <button
+            onClick={() => {}}
+            className=" rounded-md bg-red-600 text-white cursor-pointer flex items-center justify-center ease duration-300 hover:bg-red-700 p-2 w-10 h-10"
+          >
+            <CiTrash className="font-black text-xl" />
+          </button>
+        </div>
+      ),
+    }),
+  ];
+
+  // list the data into the table.
+  const [data, _setData] = React.useState<Admins[]>(() => [...defaultAdmins]);
 
   const table = useReactTable({
     data,
@@ -123,6 +106,14 @@ const Admins_list_card = () => {
     getCoreRowModel: getCoreRowModel(),
   });
 
+  // storing the value once successfully fetched
+  React.useEffect(() => {
+    if (fetchedData.isSuccess) {
+      _setData(fetchedData.data?.data?.data);
+    }
+  }, [fetchedData.isSuccess]);
+
+  console.log("fetched data", data);
   return (
     <div className="w-full p-2">
       <table className="w-full border-1 border-primary p-2">
@@ -145,7 +136,7 @@ const Admins_list_card = () => {
         <tbody>
           {table.getRowModel().rows.map((row) => (
             <tr
-              className="border-b-1 border-primary/10 font-regural text-sm text-start"
+              className="border-b-1 border-primary/10 font-regural text-sm text-start overflow-x-hidden overflow-y-auto"
               key={row.id}
             >
               {row.getVisibleCells().map((cell) => (

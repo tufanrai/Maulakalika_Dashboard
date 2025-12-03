@@ -45,3 +45,13 @@ export const getAdminsData = async () => {
     return err.message;
   }
 };
+
+// get all users
+export const getAllAdmins = async () => {
+  try {
+    const response = await adminsInstance.get("/user/");
+    return response;
+  } catch (e: any) {
+    return e.message;
+  }
+};
