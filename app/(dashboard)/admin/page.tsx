@@ -1,16 +1,13 @@
 "use client";
-import React from "react";
-import { CiMail, CiUser, CiPhone, CiLock } from "react-icons/ci";
-import { IoIosPersonAdd } from "react-icons/io";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { RegisterNewUser } from "@/app/api/auth.api";
-import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { RegisterSchema } from "@/components/schema/FormSchema";
 import { IRegister, IRoles } from "@/components/interfaces/interfaces";
 import { useForm } from "react-hook-form";
 import Admins_list_card from "@/components/cards/Admins_list_card";
+import SuperAdminAuthorization from "@/components/hoc/SuperAdminAuth";
 
 const page = () => {
   const { mutate, isPending } = useMutation({
@@ -190,4 +187,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default SuperAdminAuthorization(page, ["Super Admin"]);
