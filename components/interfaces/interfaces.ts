@@ -5,13 +5,13 @@ export interface IRegister {
   contact: string;
   role: string;
   password: string;
-  c_password: string;
 }
 
 // Roles
 export enum IRoles {
   admin = "Admin",
   user = "User",
+  superAdmin = "Super Admin",
 }
 
 // Login interface

@@ -37,10 +37,6 @@ export const RegisterSchema = yup.object({
       /^.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?].*$/,
       "Password must contain at least one special character"
     ),
-  c_password: yup
-    .string()
-    .required("please re-enter your password")
-    .oneOf([yup.ref("password")], "password didn't match"),
 });
 
 // Login schema

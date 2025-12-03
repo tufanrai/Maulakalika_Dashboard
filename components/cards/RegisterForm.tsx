@@ -105,26 +105,6 @@ const RegisterForm = () => {
           <label className="block text-sm font-medium text-gray-700 mb-1 tracking-wide">
             Role
           </label>
-          {/* <Select>
-            <SelectTrigger
-              className={`w-full rounded-sm px-5 py-2 font-regural text-sm outline-none border ${
-                errors && errors.role
-                  ? "border-red-400 bg-red-50 text-red-500"
-                  : "bg-slate-50 text-slate-800 border-slate-100"
-              }  shadow-md/30 shadow-slate-50`}
-            >
-              <SelectValue placeholder="Select you role" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel className="font-semibold text-sm px-5 text-stone-400">
-                  Roles
-                </SelectLabel>
-                <SelectItem value={IRoles.admin}>{IRoles.admin}</SelectItem>
-                <SelectItem value={IRoles.user}>{IRoles.user}</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select> */}
           <select
             id="role"
             {...register("role")}
@@ -183,28 +163,6 @@ const RegisterForm = () => {
           {errors.password && errors.password.message ? (
             <p className="w-full text-end font-regural text-xs text-red-500 px-4">
               {errors.password.message}
-            </p>
-          ) : (
-            ""
-          )}
-        </div>
-        <div className="w-full flex flex-col items-start justify-center gap-2">
-          <label className="block text-sm font-semibold text-gray-800 mb-1">
-            Confirm password
-          </label>
-          <input
-            type="password"
-            placeholder="********"
-            {...register("c_password")}
-            className={`w-full rounded-sm px-5 py-2 font-regural text-sm outline-none border ${
-              errors && errors.c_password
-                ? "border-red-400 bg-red-50 text-red-500"
-                : "bg-slate-50 text-slate-800 border-slate-100"
-            }  shadow-md/30 shadow-slate-50`}
-          />
-          {errors.c_password && errors.c_password.message ? (
-            <p className="w-full text-end font-regural text-xs text-red-500 px-4 block">
-              {errors.c_password.message}
             </p>
           ) : (
             ""

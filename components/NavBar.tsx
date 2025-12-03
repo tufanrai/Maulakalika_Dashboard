@@ -2,6 +2,7 @@
 import { LuLayoutDashboard } from "react-icons/lu";
 import { FaRegFilePdf, FaImage, FaTrash } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
+import { GrUserAdmin } from "react-icons/gr";
 import { CiLogin } from "react-icons/ci";
 import Link from "next/link";
 import Cookies from "js-cookie";
@@ -43,6 +44,13 @@ const NavBar = () => {
           <Link className="w-full" href={"/images"}>
             <button className="w-full py-3 rounded-md flex items-center justify-start pl-10 gap-1 cursor-pointer ease duration-300 hover:bg-Green hover:shadow-Green font-semibold text-md text-white">
               <FaImage /> <span className="hidden md:block">Images</span>
+            </button>
+          </Link>
+        </li>
+        <li className="w-full px-2 flex justify-center">
+          <Link className="w-full" href={"/admin"}>
+            <button className="w-full py-3 rounded-md flex items-center justify-start pl-10 gap-1 cursor-pointer ease duration-300 hover:bg-Green hover:shadow-Green font-semibold text-md text-white">
+              <GrUserAdmin /> <span className="hidden md:block">Admins</span>
             </button>
           </Link>
         </li>

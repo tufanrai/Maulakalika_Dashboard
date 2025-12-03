@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&family=Radley:ital@0;1&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --NavigationBar: rgb(19,25,39);
+  --NavigationBar: #131927;
   --Progress-icon: rgb(156, 72, 239);
   --trash-icon: rgb(220, 123, 17);
   --file-color: rgb(38, 91, 237);
@@ -41,9 +41,6 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
-  --font-Hedvig-Serif: "Hedvig Letters Serif";
-  --font-Tinos: "Tinos";
-  --font-Radley: "Radley";
 }
 
 @theme inline {
@@ -56,8 +53,6 @@
   --color-Green: var(--image-color);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-Hedvig: var(--font-Hedvig-Serif);
-  --font-Radley: var(--font-Radley);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -133,20 +128,20 @@
 
 /* Fonts styling */
 
-h1, h2, h3, h4, h5, h6{
-  font-family: "Radley";
+h1{
+  font-family: "Roboto Condensed";
 }
 
-p, span {
-  font-family: "Tinos";
+ h2, h3, h4, h5, h6, p, span {
+  font-family: "Roboto";
 }
 
 a, li, button{
-  font-family: "Hedvig Letters Serif";
+  font-family: "Roboto";
 }
 
 input, textarea {
-  font-family: "Roboto Condensed";
+  font-family: "Roboto";
 }
 
 @layer base {
