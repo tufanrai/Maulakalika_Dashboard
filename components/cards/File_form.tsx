@@ -8,6 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import { uploadDownloadFiles, uploadGalleryImage } from "@/app/api/gallery.api";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { AiOutlineLoading } from "react-icons/ai";
 
 export default function FileUploadForm() {
   const router = useRouter();
@@ -131,15 +132,29 @@ export default function FileUploadForm() {
         />
       </div>
 
-      <button
-        type="submit"
-        disabled={isPending}
-        className={`px-4 py-2 bg-blue-600 text-white rounded-md ${
-          isPending ? "cursor-not-allowed" : "cursor-pointer"
-        } ease duration-300 hover:bg-blue-700`}
-      >
-        Submit
-      </button>
+      {isPending ? (
+        <button
+          type="submit"
+          disabled={isPending}
+          className={`px-4 py-2 bg-blue-600 text-white rounded-md ${
+            isPending ? "cursor-not-allowed" : "cursor-pointer"
+          } ease duration-300 hover:bg-blue-700`}
+        >
+          <AiOutlineLoading
+            className={`${isPending ? "animation-spin" : ""}`}
+          />
+        </button>
+      ) : (
+        <button
+          type="submit"
+          disabled={isPending}
+          className={`px-4 py-2 bg-blue-600 text-white rounded-md ${
+            isPending ? "cursor-not-allowed" : "cursor-pointer"
+          } ease duration-300 hover:bg-blue-700`}
+        >
+          Submit
+        </button>
+      )}
     </form>
   );
 }

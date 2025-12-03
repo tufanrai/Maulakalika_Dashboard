@@ -12,6 +12,7 @@ import { getAllAdmins } from "@/app/api/auth.api";
 
 // interface of the data declared
 type Admins = {
+  _id: string;
   name: string;
   email: string;
   contact: string;
@@ -22,24 +23,28 @@ type Admins = {
 // default values for the table
 const defaultAdmins: Admins[] = [
   {
+    _id: "1",
     name: "Tufan Rai",
     email: "info@example.com",
     contact: "9817362424",
     role: "Admin",
   },
   {
+    _id: "2",
     name: "Khushi Sharma",
     email: "info@example.com",
     contact: "9817362424",
     role: "Admin",
   },
   {
+    _id: "3",
     name: "Akriti Ojha",
     email: "info@example.com",
     contact: "9817362424",
     role: "Super Admin",
   },
   {
+    _id: "4",
     name: "Aryana Sharma",
     email: "info@example.com",
     contact: "9817362424",
@@ -113,9 +118,8 @@ const Admins_list_card = () => {
     }
   }, [fetchedData.isSuccess]);
 
-  console.log("fetched data", data);
   return (
-    <div className="w-full p-2">
+    <div className="w-full h-1/2 overflow-x-auto overflow-y-auto p-2">
       <table className="w-full border-1 border-primary p-2">
         <thead className="bg-primary text-white font-semibold">
           {table.getHeaderGroups().map((headerGroup) => (

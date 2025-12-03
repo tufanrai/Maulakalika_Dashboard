@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
 import { Popover, PopoverTrigger, PopoverContent } from "@heroui/react";
 import Link from "next/link";
+import { AiOutlineLoading } from "react-icons/ai";
 
 interface IProps {
   customStyle?: string;
@@ -71,16 +72,29 @@ const GallerDeleteBtn = ({ customStyle, id }: IProps) => {
             </p>
           </div>
           <div className="w-full flex items-center justify-center gap-2 px-2">
-            <button
-              onClick={() => deleteImage(id)}
-              disabled={isPending}
-              className={`w-full flex items-center justify-center gap-2 px-5 py-2 rounded-sm ease duration-300 ${
-                isPending ? "cursor-not-allowed" : "cursor-pointer"
-              } bg-red-400 hover:bg-red-300 border-1 border-red-300 ${customStyle} font-regural text-md text-white`}
-            >
-              <MdDelete />
-              Delete
-            </button>
+            {isPending ? (
+              <button
+                onClick={() => deleteImage(id)}
+                disabled={isPending}
+                className={`w-full flex items-center justify-center gap-2 px-5 py-2 rounded-sm ease duration-300 ${
+                  isPending ? "cursor-not-allowed" : "cursor-pointer"
+                } bg-red-400 hover:bg-red-300 border-1 border-red-300 ${customStyle} font-regural text-md text-white`}
+              >
+                <AiOutlineLoading className="animate-spin" />
+                Pending
+              </button>
+            ) : (
+              <button
+                onClick={() => deleteImage(id)}
+                disabled={isPending}
+                className={`w-full flex items-center justify-center gap-2 px-5 py-2 rounded-sm ease duration-300 ${
+                  isPending ? "cursor-not-allowed" : "cursor-pointer"
+                } bg-red-400 hover:bg-red-300 border-1 border-red-300 ${customStyle} font-regural text-md text-white`}
+              >
+                <MdDelete />
+                Delete
+              </button>
+            )}
           </div>
         </div>
       </PopoverContent>

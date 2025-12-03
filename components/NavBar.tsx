@@ -22,7 +22,7 @@ const NavBar = () => {
           <p className="font-thin text-sm text-stone-200">Dashboard</p>
         </div>
       </div>
-      <hr className="w-full h-[2px] hidden md:block rounded-sm bg-neutral-300/70" />
+      <hr className="w-full h-[2px] hidden lg:block rounded-sm bg-neutral-300/70" />
       {/* Nav */}
       <ul className="w-full h-2/1 py-8 hidden md:block flex flex-col items-center justify-start gap-1 px-2">
         <li className="w-full px-2 flex justify-center">

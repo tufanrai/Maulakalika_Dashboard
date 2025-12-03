@@ -6,6 +6,7 @@ import { FaRegFilePdf, FaImage } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import FilesSection from "@/components/Files.section";
 import ImagesSection from "@/components/Images.section";
+import { AiOutlineLoading } from "react-icons/ai";
 
 interface IProps {
   name: string;

@@ -8,6 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import { uploadGalleryImage } from "@/app/api/gallery.api";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { AiOutlineLoading } from "react-icons/ai";
 
 export default function ImageUploadForm() {
   const router = useRouter();
@@ -92,15 +93,27 @@ export default function ImageUploadForm() {
         <p className="text-red-600 text-sm">{errors.image.message}</p>
       )}
 
-      <button
-        type="submit"
-        disabled={isPending}
-        className={`px-4 py-2 bg-blue-600 text-white rounded-md ${
-          isPending ? "cursor-not-allowed" : "cursor-pointer"
-        } ease duration-300 hover:bg-blue-700`}
-      >
-        Submit
-      </button>
+      {isPending ? (
+        <button
+          type="submit"
+          disabled={isPending}
+          className={`px-4 py-2 bg-blue-600 text-white rounded-md ${
+            isPending ? "cursor-not-allowed" : "cursor-pointer"
+          } ease duration-300 hover:bg-blue-700`}
+        >
+          <AiOutlineLoading className="animate-spin" />
+        </button>
+      ) : (
+        <button
+          type="submit"
+          disabled={isPending}
+          className={`px-4 py-2 bg-blue-600 text-white rounded-md ${
+            isPending ? "cursor-not-allowed" : "cursor-pointer"
+          } ease duration-300 hover:bg-blue-700`}
+        >
+          Submit
+        </button>
+      )}
     </form>
   );
 }

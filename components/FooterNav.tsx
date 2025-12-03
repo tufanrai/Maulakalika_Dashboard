@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 const FooterNav = () => {
   const router = useRouter();
   return (
-    <div className="md:max-w-[280px] w-full md:h-screen block md:hidden bg-navColor flex flex-col items-center jusitfy-start gap-4">
+    <div className=" md:max-w-[280px] w-full  md:h-screen block md:hidden bg-navColor flex flex-col items-center jusitfy-start gap-4">
       <ul className="w-full h-2/1 py-8  flex flex-row md:flex-col items-center justify-start gap-1 px-2">
         <li className="w-full px-2 flex justify-center">
           <Link className="w-full" href={"/files"}>

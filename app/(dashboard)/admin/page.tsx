@@ -8,14 +8,18 @@ import { IRegister, IRoles } from "@/components/interfaces/interfaces";
 import { useForm } from "react-hook-form";
 import Admins_list_card from "@/components/cards/Admins_list_card";
 import SuperAdminAuthorization from "@/components/hoc/SuperAdminAuth";
+import { AiOutlineLoading } from "react-icons/ai";
+import { useRouter } from "next/navigation";
 
 const page = () => {
+  const router = useRouter();
   const { mutate, isPending } = useMutation({
     mutationFn: RegisterNewUser,
     mutationKey: ["new user"],
     onSuccess: (data) => {
       toast.success(data?.message);
       reset();
+      router.refresh;
     },
     onError: (err) => {
       toast.error(err?.message);
@@ -166,15 +170,27 @@ const page = () => {
             )}
           </div>
           <div className="w-full flex flex-col items-start justify-center gap-2">
-            <button
-              type="submit"
-              disabled={isPending}
-              className={`w-full rounded-sm px-5 py-2 font-semibold text-lg text-white outline-none bg-blue-500 border border-blue-100 ${
-                isPending ? "cursor-not-allowed" : "cursor-pointer"
-              } ease duration-300 hover:bg-blue-600`}
-            >
-              Register
-            </button>
+            {isPending ? (
+              <button
+                type="submit"
+                disabled={isPending}
+                className={`px-4 py-2 bg-blue-600 text-white rounded-md ${
+                  isPending ? "cursor-not-allowed" : "cursor-pointer"
+                } ease duration-300 hover:bg-blue-700`}
+              >
+                <AiOutlineLoading className="animate-spin" />
+              </button>
+            ) : (
+              <button
+                type="submit"
+                disabled={isPending}
+                className={`px-4 py-2 bg-blue-600 text-white rounded-md ${
+                  isPending ? "cursor-not-allowed" : "cursor-pointer"
+                } ease duration-300 hover:bg-blue-700`}
+              >
+                Register
+              </button>
+            )}
           </div>
         </form>
       </div>
